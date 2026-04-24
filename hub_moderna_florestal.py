@@ -105,17 +105,19 @@ html {
 # 📌 SIDEBAR
 st.sidebar.markdown("### 🌲 Moderna Florestal")
 
-# ✅ LOGO (Caminho dinâmico e seguro)
-# Descobre a pasta onde o script atual está guardado
-diretorio_atual = os.path.dirname(os.path.abspath(__file__))
-logo_path = os.path.join(diretorio_atual, "assets", "LOGO MODERNA FLORESTAL.png")
+# ✅ LOGO
+diretorio_root = os.path.dirname(os.path.abspath(__file__))
+logo_path = os.path.join(diretorio_root, "assets", "LOGO MODERNA FLORESTAL.png")
 
+# Se não encontrar pelo caminho absoluto, tenta o relativo simples
+if not os.path.exists(logo_path):
+    logo_path = "assets/LOGO MODERNA FLORESTAL.png"
+
+# Exibição
 if os.path.exists(logo_path):
     st.sidebar.image(logo_path, width=160)
 else:
-    st.sidebar.error("Logo não encontrado em: assets/")
-    # Debug para você ver onde ele está procurando se der erro:
-    # st.sidebar.write(logo_path)
+    st.sidebar.warning("⚠️ Imagem indisponível.")
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### Navegação")
