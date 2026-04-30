@@ -37,23 +37,21 @@ def aplicar_metas(maquina_str):
         if "MF2156" in maquina_str or "MF2246" in maquina_str:
             return 45.0  # Meta 40-50
         return 35.0      # Meta 30-40
+
     if "FELLER" in maquina_str or "SKIDDER" in maquina_str:
         return 70.0      # Meta 60-80
-        
+
     return 25.0 # Padrão para outros
 
 # PROCESSAMENTO PRINCIPAL
-
 def processar_dados():
     arquivos = glob.glob(padrao_arquivo)
     if not arquivos:
         print("❌ Nenhum arquivo BDT_export encontrado em Downloads.")
         return
-    
     # Arquivo mais recente
     arquivo_recente = max(arquivos, key=os.path.getmtime)
     print(f"🔄 Lendo: {arquivo_recente}")
-
     # Carrega os dados
     df = pd.read_csv(arquivo_recente, encoding='utf-8-sig')
 
@@ -77,7 +75,6 @@ def processar_dados():
     # 5. AUDITORIA DE ENVIO
     df['data_envio'] = pd.to_datetime(df['created_date'])
     df['data_fim_op'] = pd.to_datetime(df['data'] + ' ' + df['hora_fim'])
-    
     # Diferença em minutos
     df['atraso_minutos'] = (df['data_envio'] - df['data_fim_op']).dt.total_seconds() / 60
     df['status_auditoria'] = df['atraso_minutos'].apply(
@@ -87,7 +84,6 @@ def processar_dados():
     # 6. SALVAMENTO FINAL
     os.makedirs(pasta_destino, exist_ok=True)
     df.to_csv(arquivo_final, index=False, sep=';', encoding='utf-8-sig')
-    
     print(f"✅ Sucesso! {len(df)} registros limpos e salvos em: {arquivo_final}")
 
 if __name__ == "__main__":
