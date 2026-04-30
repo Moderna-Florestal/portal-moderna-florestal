@@ -149,7 +149,8 @@ elif aba == "Produção":
             with st.spinner('Lendo arquivos e calculando metas...'):
                 try:
                     # Executa o script de automação que revisamos
-                    subprocess.run(["python", "automacao_bdt.py"], check=True)
+                    script_path = r"C:\Users\carol\OneDrive\Área de Trabalho\Dandara\Projetos Python\PRODUÇÃO\BDT\automacao_bdt.py"
+                    subprocess.run(["python", script_path], check=True)
                     st.success("✅ Dados processados com sucesso!")
                     st.balloons()
                 except Exception as e:
