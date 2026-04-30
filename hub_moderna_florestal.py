@@ -150,7 +150,7 @@ elif aba == "Produção":
                 try:
                     # Executa o script de automação
                     script_path = r"C:\Users\carol\OneDrive\Área de Trabalho\Dandara\Projetos Python\PRODUÇÃO\BDT\automacao_bdt.py"
-                    subprocess.run(["python", script_path], check=True)
+                    subprocess.run(f'python "{script_path}"', shell=True, check=True)
                     st.success("✅ Dados processados com sucesso!")
                     st.balloons()
                 except Exception as e:
